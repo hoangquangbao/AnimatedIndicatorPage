@@ -8,13 +8,69 @@
 import SwiftUI
 
 struct Home: View {
+    
+    var screenSize: CGSize
+    @State var offset: CGFloat = 0
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            
+            Button {
+                
+            } label: {
+                Circle()
+                    .foregroundColor(.black)
+                    .frame(width: 55, height: 55)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+            
+            OffsetPageTabView(offset: $offset) {
+                
+                //Ta không thể dùng GeometryReader ở đây, sẽ chuyển sang ContenView rồi truyền ngược về lại thông qua screenSize variable
+//                GeometryReader { proxy in
+//                    let size = proxy.size
+                    
+                    HStack(spacing: 0) {
+                        ForEach(intros) { intro in
+                            
+                            VStack {
+                                
+                                Image(intro.image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: screenSize.height / 3)
+                                
+                                VStack(alignment: .leading, spacing: 22) {
+                                    
+                                    Text(intro.title)
+                                        .font(.largeTitle.bold())
+                                    
+                                    Text(intro.description)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.secondary)
+                                }
+//                                .foregroundStyle(.white)
+                                .padding(.top, 50)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .padding()
+                            //Code line will adjust exactly frame of the image
+                            .frame(width: screenSize.width)
+                        }
+                    }
+                    //setting max Width...
+//                    .frame(width: screenSize.width)
+                //}
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)//, alignment: .top)
     }
 }
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home()
+        ContentView()
     }
 }

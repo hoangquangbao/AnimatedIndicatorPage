@@ -16,7 +16,7 @@ struct Intro: Identifiable {
 }
 
 var intros: [Intro] = [
-    Intro(image: "pic1", title: "To work with happy", description: "While you working that mean you are life", color: Color("Blue")),
-    Intro(image: "pic2", title: "Love for your life", description: "Love in the world is big love", color: Color("Pink")),
-    Intro(image: "pic3", title: "My family is best important", description: "Nothing can replace for our family, it's best thing in each life's personal", color: Color("Yellow"))
+    Intro(image: "img_pic1", title: "To work with happy", description: "While you working that mean you are live", color: Color("Blue")),
+    Intro(image: "img_pic2", title: "Love for your life", description: "Love in the world is big love", color: Color("Pink")),
+    Intro(image: "img_pic3", title: "My family is best important", description: "Nothing can replace for our family, it's best thing in each life's personal", color: Color("Yellow"))
 ]

@@ -90,6 +90,9 @@ struct Home: View {
                 Spacer()
                 
                 Button {
+                    //updating offset...
+                    let index = min(getIndex() + 1, intros.count - 1)
+                    offset = CGFloat(index) * screenSize.width
                     
                 } label: {
                     Image(systemName: "chevron.right")

@@ -57,7 +57,15 @@ struct OffsetPageTabView<Content: View>: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIScrollView, context: Context) {
-
+        
+        //need to update only when offset changed manually...
+        //just check the current of scrollview offsets...
+        let currentOffset = uiView.contentOffset.x
+        
+        if currentOffset != offset {
+            print("update")
+            uiView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
+        }
     }
     
     //Pager offset...

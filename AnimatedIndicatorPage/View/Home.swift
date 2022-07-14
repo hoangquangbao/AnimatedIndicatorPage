@@ -68,6 +68,25 @@ struct Home: View {
             //Animated Indicator...
             HStack(alignment: .bottom) {
                 
+                //Indicators...
+                HStack(spacing: 12) {
+                    ForEach(intros.indices, id: \.self) {index in
+                        
+                        Capsule()
+                            .fill(.black)
+                            .frame(width: getIndex() == index ? 20 : 7, height: 7)
+                    }
+                }
+                .overlay(
+                    Capsule()
+                        .fill(.black)
+                        .frame(width: 20, height: 7)
+                        .offset(x: getIndicatorOffset())
+                    
+                    //overlay 1 capsule lên trên, canh chỉnh sang trái cho nó khớp với các capsule dưới
+                    , alignment: .leading
+                )
+                
                 Spacer()
                 
                 Button {
@@ -105,6 +124,17 @@ struct Home: View {
         let index = min(Int(progress), intros.count - 1)
 //        return Int(progress)
         return index
+    }
+    
+    //getting Offset for Capsule for Shape
+    func getIndicatorOffset() -> CGFloat {
+        
+        let progress = offset / screenSize.width
+        //12 = spacing
+        //7 = Circle size
+        //so total = 19
+        let maxWidth: CGFloat = 12 + 7
+        return progress * maxWidth
     }
 }
 

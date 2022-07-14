@@ -9,6 +9,9 @@ import SwiftUI
 
 //Custom View that will return offset for Paging Control...
 struct OffsetPageTabView<Content: View>: UIViewRepresentable {
+    func makeCoordinator() -> Coordinator {
+        return OffsetPageTabView.Coordinator(parent: self)
+    }
     
     var content: Content
     @Binding var offset: CGFloat
@@ -47,11 +50,33 @@ struct OffsetPageTabView<Content: View>: UIViewRepresentable {
         scrollview.showsVerticalScrollIndicator = false
         scrollview.showsHorizontalScrollIndicator = false
         
+        //Setting Delegate...
+        scrollview.delegate = context.coordinator
+        
         return scrollview
     }
     
     func updateUIView(_ uiView: UIScrollView, context: Context) {
 
+    }
+    
+    //Pager offset...
+    class Coordinator: NSObject, UIScrollViewDelegate {
+        
+        var parent: OffsetPageTabView
+        
+        init(parent: OffsetPageTabView) {
+            self.parent = parent
+        }
+        
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            
+            //Offset sẽ được cộng dồn từ view gốc.
+            //Nếu ta dùng Tabview để triển khai điều tương tự thì offset sẽ reset về lại sau khi view được scroll
+            let offset = scrollView.contentOffset.x
+            
+            parent.offset = offset
+        }
     }
 }
 

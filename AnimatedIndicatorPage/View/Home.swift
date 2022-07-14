@@ -64,8 +64,47 @@ struct Home: View {
 //                    .frame(width: screenSize.width)
                 //}
             }
+            
+            //Animated Indicator...
+            HStack(alignment: .bottom) {
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "chevron.right")
+                        .font(.title2.bold())
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .background(
+//                            Circle()
+//                                .foregroundColor(.black)
+                            intros[getIndex()].color,
+                            in: Circle()
+                        )
+                }
+
+            }
+            .padding()
+            .offset(y: -20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)//, alignment: .top)
+//        .onChange(of: offset) { _ in
+//            print(offset)
+//        }
+        .animation(.easeInOut, value: getIndex())
+    }
+    
+    //Expanding index base on offset...
+    func getIndex() -> Int {
+        
+        let progress = round(offset / screenSize.width)
+        
+        //For Saftey...
+        let index = min(Int(progress), intros.count - 1)
+//        return Int(progress)
+        return index
     }
 }
 
